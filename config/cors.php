@@ -1,11 +1,11 @@
 <?php
 
 return [
-    'paths' => ['api/*',],
+    'paths' => ['api/*', 'trips'],
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['http://localhost:5174', 'https://camper4four.netlify.app'],
 
     'allowed_origins_patterns' => [],
 
