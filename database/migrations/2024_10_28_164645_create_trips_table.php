@@ -15,7 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
+<<<<<<< HEAD
             $table->string('image_path');
+=======
+            $table->string('image');
+>>>>>>> 802d0b5f0cbe2cf4a19aab0109ebdb7885dba068
             $table->timestamps();
         });
     }
