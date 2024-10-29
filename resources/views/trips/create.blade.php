@@ -6,8 +6,8 @@
     <label for="name">Nome:</label>
     <input type="text" name="name" required>
 
-    <label for="date">Data:</label>
-    <input type="date" name="date" required>
+    <label for="description">Descrizione:</label>
+    <input type="text" name="description" required>
 
     <label for="image">Immagine:</label>
     <input type="file" name="image" accept="image/*" required>
