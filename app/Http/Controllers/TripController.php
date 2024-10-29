@@ -18,7 +18,7 @@ class TripController extends Controller
         // Validazione dei dati
         $request->validate([
             'name' => 'required|string|max:255',
-            'date' => 'required|date',
+            'description' => 'required|string',
             'image' => 'required|image|max:2048',
         ]);
 
@@ -28,7 +28,7 @@ class TripController extends Controller
         // Crea il trip nel database
         Trip::create([
             'name' => $request->name,
-            'date' => $request->date,
+            'description' => $request->description,
             'image_path' => $imagePath,
         ]);
 

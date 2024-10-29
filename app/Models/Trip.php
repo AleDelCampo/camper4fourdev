@@ -10,7 +10,7 @@ class Trip extends Model
     use HasFactory;
     protected $fillable = [
         'name',
-        'date',
+        'description',
         'image_path',
     ];
 }
