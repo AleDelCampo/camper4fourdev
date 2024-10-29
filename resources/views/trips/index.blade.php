@@ -5,20 +5,18 @@
     <table class="table">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Nome</th>
-                <th>Data</th>
+                <th>Descrizione</th>
                 <th>Immagine</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($trips as $trip)
             <tr>
-                <td>{{ $trip->id }}</td>
                 <td>{{ $trip->name }}</td>
                 <td>{{ $trip->description }}</td>
                 <td>
-                    <img src="{{ Storage::url($trip->image) }}" alt="Image" width="100">
+                    <img src="{{ Storage::url($trip->image_path) }}" alt="Image" width="100">
                 </td>
             </tr>
             @endforeach

@@ -29,7 +29,7 @@ class TripController extends Controller
         Trip::create([
             'name' => $request->name,
             'date' => $request->date,
-            'image' => $imagePath,
+            'image_path' => $imagePath,
         ]);
 
         // Reindirizza alla rotta welcome o altra pagina desiderata
@@ -40,7 +40,7 @@ class TripController extends Controller
     {
         // Recupera tutti i trips e genera URL completi per le immagini
         $trips = Trip::all()->map(function ($trip) {
-            $trip->image = Storage::url($trip->image);
+            $trip->image_path = Storage::url($trip->image_path);
             return $trip;
         });
 
