@@ -16,7 +16,7 @@
             <tr>
                 <td>{{ $trip->id }}</td>
                 <td>{{ $trip->name }}</td>
-                <td>{{ $trip->date }}</td>
+                <td>{{ $trip->description }}</td>
                 <td>
                     <img src="{{ Storage::url($trip->image_path) }}" alt="Image" width="100">
                 </td>
