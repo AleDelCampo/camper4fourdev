@@ -44,7 +44,7 @@ class TripController extends Controller
             return $trip;
         });
 
-        // Ritorna i trips come risposta JSON
-        return response()->json($trips);
+        // Ritorna la vista con la lista dei trips
+        return view('trips.index', compact('trips'));
     }
 }
