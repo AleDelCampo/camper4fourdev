@@ -1,6 +1,5 @@
-@extends('layouts.app')
-
-@section('content')
+<!DOCTYPE html>
+<html lang="en">
 <div class="container">
     <h1>Benvenuto nella nostra applicazione!</h1>
     <p>Questo è il contenuto della pagina di benvenuto.</p>
@@ -10,4 +9,4 @@
         <a href="{{ route('trips.create') }}" class="btn btn-success">Crea un Trip</a>
     </div>
 </div>
-@endsection
+</html>

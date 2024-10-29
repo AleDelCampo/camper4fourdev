@@ -1,5 +1,5 @@
-@extends('layouts.app')
-@section('content')
+<!DOCTYPE html>
+<html lang="en">
 <div class="container">
     <h1>Lista dei Trips</h1>
     <table class="table">
@@ -25,4 +25,4 @@
         </tbody>
     </table>
 </div>
-@endsection
+</html>
