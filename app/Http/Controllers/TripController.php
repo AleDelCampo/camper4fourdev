@@ -29,7 +29,7 @@ class TripController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('images', 'public');
+            $data['image_path'] = $request->file('image')->store('images', 'public');
         }
 
         $trip = Trip::create($data);

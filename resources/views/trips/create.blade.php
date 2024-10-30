@@ -15,7 +15,7 @@
         </div>
         <div class="mb-3">
             <label for="image" class="form-label">Image</label>
-            <input type="file" class="form-control" id="image" name="image" accept="image/*">
+            <input type="file" class="form-control" id="image" name="image">
         </div>
         <button type="submit" class="btn my-btn text-white">Create Trip</button>
     </form>
