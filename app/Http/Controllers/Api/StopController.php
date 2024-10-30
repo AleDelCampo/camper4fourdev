@@ -22,19 +22,10 @@ class StopController extends Controller
             'location' => 'required|string|max:255',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
-            'images' => 'nullable|array',
-            'images.*' => 'nullable|image|max:2048',
             'rating' => 'nullable|integer|min:1|max:5',
         ]);
 
         $stop = Stop::create($validatedData);
-
-        if ($request->has('images')) {
-            foreach ($request->file('images') as $image) {
-                $path = $image->store('images', 'public');
-                $stop->images()->create(['path' => $path]);
-            }
-        }
 
         if ($request->has('rating')) {
             $stop->rating()->create(['rating' => $request->rating]);
@@ -45,7 +36,7 @@ class StopController extends Controller
 
     public function show($id)
     {
-        $stop = Stop::with('images', 'rating')->find($id);
+        $stop = Stop::with('rating')->find($id);
 
         if (!$stop) {
             return response()->json(['error' => 'Stop not found'], 404);
@@ -67,21 +58,10 @@ class StopController extends Controller
             'location' => 'required|string|max:255',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
-            'images' => 'nullable|array',
-            'images.*' => 'nullable|image|max:2048',
             'rating' => 'nullable|integer|min:1|max:5',
         ]);
 
         $stop->update($validatedData);
-
-        if ($request->has('images')) {
-            $stop->images()->delete();
-
-            foreach ($request->file('images') as $image) {
-                $path = $image->store('images', 'public');
-                $stop->images()->create(['path' => $path]);
-            }
-        }
 
         if ($request->has('rating')) {
             $stop->rating()->updateOrCreate([], ['rating' => $request->rating]);

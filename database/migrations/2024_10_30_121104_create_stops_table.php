@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('location');
             $table->float('latitude')->after('location');
             $table->float('longitude')->after('latitude');
-            $table->integer('rating')->default(0);
             $table->timestamps();
         });
     }

@@ -30,16 +30,18 @@ class StopController extends Controller
             'rating' => 'nullable|integer|min:1|max:5',
         ]);
 
-        // Crea la Stop usando i dati validati senza gestione immagini
         $stop = Stop::create($validatedData);
+
+        if ($request->has('rating')) {
+            $stop->rating()->create(['rating' => $request->rating]);
+        }
 
         return redirect()->route('stops.index')->with('success', 'Stop created successfully');
     }
 
-
     public function show($id)
     {
-        $stop = Stop::with( 'rating')->find($id);
+        $stop = Stop::with('rating')->find($id);
 
         if (!$stop) {
             return redirect()->route('stops.index')->with('error', 'Stop not found');
@@ -78,6 +80,10 @@ class StopController extends Controller
 
         $stop->update($validatedData);
 
+        if ($request->has('rating')) {
+            $stop->rating()->updateOrCreate([], ['rating' => $request->rating]);
+        }
+
         return redirect()->route('stops.index')->with('success', 'Stop updated successfully');
     }
 
@@ -89,7 +95,6 @@ class StopController extends Controller
             return redirect()->route('stops.index')->with('error', 'Stop not found');
         }
 
-        $stop->images()->delete();
         $stop->rating()->delete();
         $stop->delete();
 
