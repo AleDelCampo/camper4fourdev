@@ -14,12 +14,12 @@ Route::get('/', function () {
 // Rotte per Days
 Route::get('/days/create', [DayController::class, 'create'])->name('days.create');
 Route::post('/days', [DayController::class, 'store'])->name('days.store');
-Route::get('/days', [DayController::class, 'showDaysPage'])->name('days.index');
+Route::get('/days', [DayController::class, 'index'])->name('days.index');
 
 // Rotte per Stops
 Route::get('/stops/create', [StopController::class, 'create'])->name('stops.create');
 Route::post('/stops', [StopController::class, 'store'])->name('stops.store');
-Route::get('/stops', [StopController::class, 'showStopsPage'])->name('stops.index');
+Route::get('/stops', [StopController::class, 'index'])->name('stops.index');
 
 // Rotte per Trips
 Route::get('/trips', [TripController::class, 'index'])->name('trips.index');

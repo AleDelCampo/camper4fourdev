@@ -14,10 +14,6 @@
                 <textarea class="form-control" id="description" name="description"></textarea>
             </div>
             <div class="mb-3">
-                <label for="date" class="form-label">Date</label>
-                <input type="date" class="form-control" id="date" name="date" required>
-            </div>
-            <div class="mb-3">
                 <label for="image" class="form-label">Image</label>
                 <input type="file" class="form-control" id="image" name="image" accept="image/*">
             </div>
