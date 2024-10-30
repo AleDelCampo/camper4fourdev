@@ -18,7 +18,12 @@ use App\Http\Controllers\NoteController;
 |
 */
 
-Route::apiResource('stops.notes', NoteController::class)->only(['index', 'store', 'show', 'update', 'destroy']);
+Route::apiResource('trips.days', DayController::class);
+Route::apiResource('days.stops', StopController::class);
+
+Route::post('/stops/{id}/rate', [StopController::class, 'rate']);
+Route::post('/stops/{stop}/notes', [NoteController::class, 'store']);
+Route::delete('/notes/{noteId}', [NoteController::class, 'destroy']);
 
 Route::apiResource('stops', StopController::class);
 Route::post('stops/{id}/rate', [StopController::class, 'rate']);
