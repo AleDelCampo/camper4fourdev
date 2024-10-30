@@ -13,7 +13,7 @@
     <ul class="list-group">
         @foreach($trips as $trip)
         <li class="list-group-item">
-            {{ $trip->title }}
+            {{ $trip->name }}
         </li>
         @endforeach
     </ul>
