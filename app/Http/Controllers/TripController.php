@@ -4,43 +4,65 @@ namespace App\Http\Controllers;
 
 use App\Models\Trip;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\Controller;
 
 class TripController extends Controller
 {
+    public function index()
+    {
+        // Recupera tutti i viaggi
+        $trips = Trip::all();
+        return view('trips.index', ['trips' => $trips]);
+    }
+
     public function create()
     {
-        return view('trips.create');
+        return view('trips.create'); // Vista per il form di creazione
     }
 
     public function store(Request $request)
     {
-        // Validazione dei dati
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'image' => 'required|image|max:2048',
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|max:2048',
         ]);
 
-        // Salva l'immagine nella cartella pubblica e ottieni il percorso
-        $imagePath = $request->file('image')->store('images', 'public');
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('images', 'public');
+        }
 
-        // Crea il trip nel database
-        Trip::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'image_path' => $imagePath,
-        ]);
-
-        // Reindirizza alla rotta welcome o altra pagina desiderata
-        return redirect()->route('welcome');
+        $trip = Trip::create($data);
+        return redirect()->route('trips.index')->with('success', 'Trip created successfully');
     }
 
-    public function index()
+    public function edit($id)
     {
-        $trips = Trip::all();
+        $trip = Trip::findOrFail($id);
+        return view('trips.edit', compact('trip')); // Vista per il form di modifica
+    }
 
-        // Ritorna la vista con la lista dei trips
-        return view('trips.index', compact('trips'));
+    public function update(Request $request, $id)
+    {
+        $trip = Trip::findOrFail($id);
+
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|max:2048',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('images', 'public');
+        }
+
+        $trip->update($data);
+        return redirect()->route('trips.index')->with('success', 'Trip updated successfully');
+    }
+
+    public function destroy($id)
+    {
+        Trip::destroy($id);
+        return redirect()->route('trips.index')->with('success', 'Trip deleted successfully');
     }
 }

@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\TripController;
+use App\Http\Controllers\Api\DayController;
+use App\Http\Controllers\StopController;
+use App\Http\Controllers\NoteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +18,13 @@ use App\Http\Controllers\Api\TripController;
 |
 */
 
+Route::apiResource('stops.notes', NoteController::class)->only(['index', 'store', 'show', 'update', 'destroy']);
+
+Route::apiResource('stops', StopController::class);
+Route::post('stops/{id}/rate', [StopController::class, 'rate']);
+Route::post('stops/{stopId}/notes', [StopController::class, 'addNote']);
+
+Route::apiResource('days', DayController::class);
 Route::get('/trips', [TripController::class, 'index']);
 Route::post('/trips', [TripController::class, 'store']);
 Route::get('/trips/{id}', [TripController::class, 'show']);

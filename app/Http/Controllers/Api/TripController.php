@@ -2,44 +2,76 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Models\Trip; // Assicurati di importare il modello Trip
+use App\Models\Trip;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class TripController extends Controller
 {
-    // Restituisce tutti i viaggi
     public function index()
     {
-        $trips = Trip::all();
-        return response()->json($trips);
+        // Carica tutti i viaggi con le giornate e le tappe correlate
+        return response()->json(Trip::with('days.stops')->get(), 200);
     }
 
-    // Crea un nuovo viaggio
-    public function store(Request $request)
-    {
-        $trip = Trip::create($request->all()); // Crea e restituisce il viaggio creato
-        return response()->json($trip, 201);
-    }
-
-    // Mostra un viaggio specifico
     public function show($id)
     {
-        return Trip::findOrFail($id); // Restituisce il viaggio specificato
-    }
+        // Carica il viaggio insieme alle giornate e alle fermate
+        $trip = Trip::with('days.stops')->find($id);
 
-    // Aggiorna un viaggio esistente
-    public function update(Request $request, $id)
-    {
-        $trip = Trip::findOrFail($id);
-        $trip->update($request->all());
+        if (!$trip) {
+            return response()->json(['error' => 'Trip not found'], 404);
+        }
+
         return response()->json($trip, 200);
     }
 
-    // Elimina un viaggio
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|max:2048',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('images', 'public');
+        }
+
+        $trip = Trip::create($data);
+        return response()->json(['trip' => $trip], 201);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $trip = Trip::findOrFail($id);
+
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|max:2048',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('images', 'public');
+        }
+
+        $trip->update($data);
+        return response()->json(['trip' => $trip], 200);
+    }
+
     public function destroy($id)
     {
         Trip::destroy($id);
-        return response()->json(null, 204); // Restituisce un codice di stato 204
+        return response()->json(['message' => 'Trip deleted successfully'], 200);
+    }
+
+    public function getTripDetails($tripId)
+    {
+        $trip = Trip::with(['days.stops.notes'])->find($tripId);
+        if (!$trip) {
+            return response()->json(['error' => 'Trip not found'], 404);
+        }
+        return response()->json($trip, 200);
     }
 }
