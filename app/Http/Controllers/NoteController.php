@@ -10,16 +10,7 @@ class NoteController extends Controller
 {
     public function index()
     {
-        // Carica tutte le note per visualizzarle in una vista
-        $notes = Note::all();
-        return view('notes.index', compact('notes'));
-    }
-
-    public function create($stopId)
-    {
-        // Mostra il form di creazione per aggiungere una nota a una tappa specifica
-        $stop = Stop::findOrFail($stopId);
-        return view('notes.create', compact('stop'));
+        return Note::all();
     }
 
     public function store(Request $request, $stopId)
@@ -29,22 +20,16 @@ class NoteController extends Controller
         ]);
 
         $stop = Stop::findOrFail($stopId);
-        $stop->notes()->create(['content' => $request->input('content')]);
+        $note = $stop->notes()->create([
+            'content' => $request->input('content'),
+        ]);
 
-        return redirect()->route('stops.show', $stopId)->with('success', 'Note created successfully');
+        return response()->json($note, 201);
     }
 
     public function show($id)
     {
-        // Visualizza una singola nota
-        $note = Note::findOrFail($id);
-        return view('notes.show', compact('note'));
-    }
-
-    public function edit($id)
-    {
-        $note = Note::findOrFail($id);
-        return view('notes.edit', compact('note'));
+        return Note::find($id);
     }
 
     public function update(Request $request, $id)
@@ -54,16 +39,23 @@ class NoteController extends Controller
         ]);
 
         $note = Note::findOrFail($id);
-        $note->update(['content' => $request->input('content')]);
+        $note->update([
+            'content' => $request->input('content'),
+        ]);
 
-        return redirect()->route('notes.show', $note->id)->with('success', 'Note updated successfully');
+        return response()->json($note);
     }
 
-    public function destroy($id)
+    public function destroy($noteId)
     {
-        $note = Note::findOrFail($id);
+        $note = Note::find($noteId);
+
+        if (!$note) {
+            return response()->json(['message' => 'Note not found'], 404);
+        }
+
         $note->delete();
 
-        return redirect()->route('notes.index')->with('success', 'Note deleted successfully');
+        return response()->json(['message' => 'Note deleted successfully']);
     }
 }
