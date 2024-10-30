@@ -9,7 +9,7 @@
             <label for="day_id">Day</label>
             <select class="form-control" id="day_id" name="day_id" required>
                 @foreach($days as $day)
-                    <option value="{{ $day->id }}">{{ $day->date }}</option>
+                <option value="{{ $day->id }}">{{ $day->date }}</option>
                 @endforeach
             </select>
         </div>
@@ -28,4 +28,26 @@
         <button type="submit" class="btn my-btn text-white mt-2">Create Stop</button>
     </form>
 </div>
+
+<style scoped>
+    .my-nav-bg {
+        background-color: #4a5d5e;
+    }
+
+    .my-bg {
+        background-color: #d2dbc8;
+    }
+
+    .my-light-bg {
+        background-color: #f8f9fa;
+    }
+
+    .my-btn {
+        background-color: #4a5d5e;
+    }
+
+    .my-btn:hover {
+        background-color: #4a5d5e;
+    }
+</style>
 @endsection

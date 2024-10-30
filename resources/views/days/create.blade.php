@@ -9,7 +9,7 @@
             <label for="trip_id">Trip</label>
             <select class="form-control" id="trip_id" name="trip_id" required>
                 @foreach($trips as $trip)
-                    <option value="{{ $trip->id }}">{{ $trip->title }}</option>
+                <option value="{{ $trip->id }}">{{ $trip->title }}</option>
                 @endforeach
             </select>
         </div>
@@ -20,4 +20,26 @@
         <button type="submit" class="btn my-btn text-white mt-2">Create Day</button>
     </form>
 </div>
+
+<style scoped>
+    .my-nav-bg {
+        background-color: #4a5d5e;
+    }
+
+    .my-bg {
+        background-color: #d2dbc8;
+    }
+
+    .my-light-bg {
+        background-color: #f8f9fa;
+    }
+
+    .my-btn {
+        background-color: #4a5d5e;
+    }
+
+    .my-btn:hover {
+        background-color: #4a5d5e;
+    }
+</style>
 @endsection

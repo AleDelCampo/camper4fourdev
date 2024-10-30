@@ -19,4 +19,26 @@
     </ul>
     @endif
 </div>
+
+<style scoped>
+    .my-nav-bg {
+        background-color: #4a5d5e;
+    }
+
+    .my-bg {
+        background-color: #d2dbc8;
+    }
+
+    .my-light-bg {
+        background-color: #f8f9fa;
+    }
+
+    .my-btn {
+        background-color: #4a5d5e;
+    }
+
+    .my-btn:hover {
+        background-color: #4a5d5e;
+    }
+</style>
 @endsection
