@@ -22,7 +22,7 @@ Route::post('/stops', [StopController::class, 'store'])->name('stops.store');
 Route::get('/stops', [StopController::class, 'showStopsPage'])->name('stops.index');
 
 // Rotte per Trips
-Route::get('/trips', [TripController::class, 'showTripsPage'])->name('trips.index');
+Route::get('/trips', [TripController::class, 'index'])->name('trips.index');
 Route::get('/trips/create', [TripController::class, 'create'])->name('trips.create');
 Route::post('/trips', [TripController::class, 'store'])->name('trips.store');
 Route::get('/trips/{id}', [TripController::class, 'show'])->name('trips.show');

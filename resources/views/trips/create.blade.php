@@ -1,17 +1,27 @@
 @extends('layouts.app')
+
 @section('content')
-<h1>Crea un Nuovo Elemento</h1>
-<form action="{{ route('trips.store') }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    <label for="name">Nome:</label>
-    <input type="text" name="name" required>
-
-    <label for="description">Descrizione:</label>
-    <input type="text" name="description" required>
-
-    <label for="image">Immagine:</label>
-    <input type="file" name="image" accept="image/*" required>
-
-    <button type="submit">Crea</button>
-</form>
+    <div class="container mt-2">
+        <h1>Create Trip</h1>
+        <form action="{{ route('trips.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="date" class="form-label">Date</label>
+                <input type="date" class="form-control" id="date" name="date" required>
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label">Image</label>
+                <input type="file" class="form-control" id="image" name="image" accept="image/*">
+            </div>
+            <button type="submit" class="btn my-btn text-white">Create Trip</button>
+        </form>
+    </div>
 @endsection
