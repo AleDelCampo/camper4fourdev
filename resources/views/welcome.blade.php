@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="jumbotron text-center text-white py-5 my-bg">
         <div class="container">
