@@ -20,9 +20,4 @@ class Stop extends Model
     {
         return $this->hasMany(Note::class);
     }
-
-    public function rating()
-    {
-        return $this->hasOne(Rating::class);
-    }
 }

@@ -30,11 +30,7 @@ class StopController extends Controller
             'rating' => 'nullable|integer|min:1|max:5',
         ]);
 
-        $stop = Stop::create($validatedData);
-
-        if ($request->has('rating')) {
-            $stop->rating()->create(['rating' => $request->rating]);
-        }
+        Stop::create($validatedData);
 
         return redirect()->route('stops.index')->with('success', 'Stop created successfully');
     }
