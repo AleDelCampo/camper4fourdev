@@ -23,7 +23,7 @@ class TripController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'title' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'image' => 'nullable|image|max:2048',
         ]);
@@ -47,7 +47,7 @@ class TripController extends Controller
         $trip = Trip::findOrFail($id);
 
         $data = $request->validate([
-            'title' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'image' => 'nullable|image|max:2048',
         ]);
