@@ -11,7 +11,8 @@ class TripController extends Controller
     // Restituisce tutti i viaggi
     public function index()
     {
-        return Trip::all(); // Restituisce tutti i record
+        $trips = Trip::all();
+        return response()->json($trips);
     }
 
     // Crea un nuovo viaggio

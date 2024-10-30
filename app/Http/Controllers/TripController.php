@@ -38,11 +38,7 @@ class TripController extends Controller
 
     public function index()
     {
-        // Recupera tutti i trips e genera URL completi per le immagini
-        $trips = Trip::all()->map(function ($trip) {
-            $trip->image_path = Storage::url($trip->image_path);
-            return $trip;
-        });
+        $trips = Trip::all();
 
         // Ritorna la vista con la lista dei trips
         return view('trips.index', compact('trips'));
