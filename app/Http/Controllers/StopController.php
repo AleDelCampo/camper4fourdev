@@ -10,7 +10,7 @@ class StopController extends Controller
 {
     public function index()
     {
-        $stops = Stop::with('images', 'rating')->get();
+        $stops = Stop::all();
         return view('stops.index', ['stops' => $stops]);
     }
 
@@ -27,7 +27,6 @@ class StopController extends Controller
             'location' => 'required|string|max:255',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
-            'rating' => 'nullable|integer|min:1|max:5',
         ]);
 
         Stop::create($validatedData);
@@ -37,9 +36,9 @@ class StopController extends Controller
 
     public function show($id)
     {
-        $stop = Stop::with('rating')->find($id);
+        $stops = Stop::all();
 
-        if (!$stop) {
+        if (!$stops) {
             return redirect()->route('stops.index')->with('error', 'Stop not found');
         }
 
@@ -71,14 +70,9 @@ class StopController extends Controller
             'location' => 'required|string|max:255',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
-            'rating' => 'nullable|integer|min:1|max:5',
         ]);
 
         $stop->update($validatedData);
-
-        if ($request->has('rating')) {
-            $stop->rating()->updateOrCreate([], ['rating' => $request->rating]);
-        }
 
         return redirect()->route('stops.index')->with('success', 'Stop updated successfully');
     }

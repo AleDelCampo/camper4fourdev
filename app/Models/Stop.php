@@ -9,7 +9,7 @@ class Stop extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['day_id', 'location', 'latitude', 'longitude', 'rating'];
+    protected $fillable = ['day_id', 'location', 'latitude', 'longitude'];
 
     public function day()
     {
